@@ -1,9 +1,10 @@
 import { Proposal, Proposals } from "./borsh-schemas";
 // TODO: How to handle these imports?
-import { Query as RustQuery } from "./web/sdk-multicore";
-export * from "./web/sdk-multicore";
+import { Query as RustQuery } from "./target/web/sdk";
+export * from "./target/web/sdk";
 export * from "./types";
 export * from "./utils";
+export * from "./loader";
 
 type TimeoutOpts = {
   // Timeout in milliseconds
@@ -60,3 +61,4 @@ export class Query extends RustQuery {
 
 export * from "./types";
 export { Proposal, Proposals };
+export { initSdk } from "wasm/loader";

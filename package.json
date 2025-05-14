@@ -7,8 +7,17 @@
   "repository": "https://github.com/anoma/namada-sdkjs/",
   "author": "Heliax Dev <info@heliax.dev>",
   "license": "MIT",
+  "scriptsComments": {
+    "prepublish": "We make focused install to make sure that we specified all required dependencies",
+    "wasm:cp": "We need to copy wasm to the dist folder, so it can be imported correctly"
+  },
   "scripts": {
-    "prepublish": "yarn wasm:build && tsc --build",
+    "prepublish": "yarn workspaces focus @namada/sdk && yarn build",
+    "prebuild": "rimraf ./dist",
+    "wasm:cp": "node ./scripts/copy.js",
+    "build:web": "yarn wasm:build && tspc -p tsconfig.web.json && yarn wasm:cp",
+    "build:node": "yarn wasm:build:node && tspc -p tsconfig.node.json && yarn wasm:node:cp",
+    "build": "yarn prebuild && yarn build:web && yarn build:node",
     "wasm:check": "cd ./lib && cargo check && cargo clippy",
     "wasm:ts:node": "tsc -p tsconfig.node.json",
     "wasm:ts:web": "tsc -p tsconfig.web.json",
@@ -21,7 +30,13 @@
     "wasm:build:node:multicore": "yarn wasm:ts:node && node ./scripts/build.js --target nodejs --release --multicore",
     "wasm:build:node:dev": "yarn wasm:ts:node && node ./scripts/build.js --target nodejs",
     "wasm:build:node:dev:multicore": "yarn wasm:ts:node && node ./scripts/build.js --target nodejs --multicore",
-    "wasm:clean": "cd lib && cargo clean"
+    "wasm:clean": "cd lib && cargo clean",
+    "build:docs": "typedoc --plugin typedoc-plugin-markdown --out docs src/index.ts",
+    "test": "yarn wasm:build:node:dev && yarn jest",
+    "test:only": "yarn jest",
+    "test:cov": "yarn wasm:build:node:dev && yarn jest --coverage",
+    "test:watch": "yarn wasm:build:node:dev && yarn jest --watchAll=true",
+    "test:ci": "jest"
   },
   "dependencies": {
     "@cosmjs/encoding": "^0.29.0",
@@ -46,6 +61,8 @@
     "rimraf": "^5.0.5",
     "ts-jest": "^29.2.5",
     "ts-node": "^10.9.1",
+    "typedoc": "^0.25.12",
+    "typedoc-plugin-markdown": "^3.17.1",
     "typescript": "5.5.4",
     "wasm-pack": "^0.13.0"
   },

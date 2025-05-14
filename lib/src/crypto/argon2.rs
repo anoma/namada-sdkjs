@@ -169,7 +169,7 @@ mod tests {
     #[wasm_bindgen_test]
     fn can_verify_stored_hash() {
         let password = "unhackable";
-        let argon2 = Argon2::new(password.into(), None, None)
+        let argon2 = Argon2::new(password.into(), None, Some(Argon2Params::new(4096, 3, 1)))
             .expect("Creating instance with default params should not fail");
         let stored_hash = "$argon2id$v=19$m=4096,t=3,p=1$0UUjc4ZBOJJLTPrS1mQr1w$orbgGGRzWC0GvplgJuteaDORldnQiJfVumhXSuwO3UE";
 
@@ -183,10 +183,14 @@ mod tests {
     fn can_verify_stored_hash_with_custom_salt() {
         let password = "unhackable";
         let salt = String::from("41oVKhMIBZ+oF4efwq7e0A");
-        let argon2 = Argon2::new(password.into(), Some(salt), None)
-            .expect("Creating instance with default params should not fail");
-        let stored_hash = "$argon2id$v=19$m=4096,t=3,p=1$41oVKhMIBZ+oF4efwq7e0A$ec9kY153e/S6z9awayWdUTLdaQowoAxrdo7ZkTjhBl4";
+        let argon2 = Argon2::new(
+            password.into(),
+            Some(salt),
+            Some(Argon2Params::new(4096, 3, 1)),
+        )
+        .expect("Creating instance with default params should not fail");
 
+        let stored_hash = "$argon2id$v=19$m=4096,t=3,p=1$41oVKhMIBZ+oF4efwq7e0A$ec9kY153e/S6z9awayWdUTLdaQowoAxrdo7ZkTjhBl4";
         // Providing salt, this should create an equivalent hash:
         assert_eq!(argon2.to_hash().unwrap(), stored_hash);
         assert!(argon2.verify(stored_hash.to_string()).is_ok());
@@ -206,8 +210,9 @@ mod tests {
         let params = argon2.params();
         let key = argon2.key().expect("Creating key should not fail");
 
-        assert_eq!(params.m_cost(), 4096);
-        assert_eq!(params.t_cost(), 3);
+        // Assert default options match
+        assert_eq!(params.m_cost(), 19456);
+        assert_eq!(params.t_cost(), 2);
         assert_eq!(params.p_cost(), 1);
         assert_eq!(key.vec.len(), 43);
     }
