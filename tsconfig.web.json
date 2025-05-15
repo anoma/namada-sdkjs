@@ -1,12 +1,24 @@
 {
-  "include": ["lib/src/**/*.ts"],
+  "extends": "./tsconfig.json",
+  "include": [
+    "./src/**/*"
+  ],
+  "exclude": [
+    "./src/tests/*.ts",
+    "node_modules",
+    "scripts"
+  ],
   "compilerOptions": {
-    "esModuleInterop": true,
+    "declaration": true,
+    "outDir": "dist/web",
     "module": "esnext",
     "moduleResolution": "bundler",
-    "allowJs": false,
-    "skipLibCheck": true,
-    "noEmit": false,
-    "declaration": false
+    "plugins": [
+      // Transform paths in output .js files
+      { "transform": "typescript-transform-paths" },
+
+      // Transform paths in output .d.ts files (Include this line if you output declarations files)
+      { "transform": "typescript-transform-paths", "afterDeclarations": true }
+    ]
   }
 }

@@ -1,6 +1,7 @@
-const { parseArgs } = require("node:util");
-const { spawnSync, execSync } = require("child_process");
+import { parseArgs } from "node:util";
+import { spawnSync, execSync } from "child_process";
 
+const __dirname = import.meta.dirname;
 const targets = ["web", "nodejs"];
 
 const argsOptions = {
@@ -90,10 +91,12 @@ if (status !== 0) {
   process.exit(status);
 }
 
-execSync("rm -rf dist && mkdir dist && mkdir dist/sdk");
+// execSync("rm -rf dist && mkdir dist && mkdir dist/sdk");
 
+// TODO: Is this still needed?
 // Remove the .gitignore so we can publish generated files
-execSync(`rm -rf ${outDir}.gitignore`);
+// execSync(`rm -rf ${outDir}/.gitignore`);
 
+// FYI - This is handled in copy.js now
 // Manually copy wasms to dist
-execSync(`cp -r ${outDir}/*.wasm ${__dirname}/../dist/sdk`);
+// execSync(`cp -r ${outDir}/*.wasm ${__dirname}/../dist/sdk`);

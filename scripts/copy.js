@@ -1,4 +1,4 @@
-const { execSync } = require("child_process");
+import { execSync } from "child_process";
 
 const targets = ["web", "nodejs"];
 const sdkBuilds = ["sdk", "sdk-multicore"];

@@ -1,5 +1,5 @@
 import { field } from "@dao-xyz/borsh";
-import { RevealPkProps } from "../../tx/types";
+import { RevealPkProps } from "../types";
 
 export class RevealPkMsgValue {
   @field({ type: "string" })
