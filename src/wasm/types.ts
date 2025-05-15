@@ -1,4 +1,4 @@
-import { TxType } from "./web/sdk";
+import { TxType } from "./target/web/sdk";
 
 export type SupportedTx = Extract<
   TxType,
