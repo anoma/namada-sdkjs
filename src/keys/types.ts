@@ -1,4 +1,4 @@
-import { Bip44Path, Zip32Path } from "types";
+import { Bip44Path, Zip32Path } from "../types";
 
 /**
  * Address and public key type

@@ -1,4 +1,4 @@
-import { Sdk } from "sdk";
+import { Sdk } from "../../sdk";
 import {
   InitializedWasm,
   InitProps,

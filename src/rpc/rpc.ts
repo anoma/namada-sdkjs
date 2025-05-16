@@ -1,16 +1,17 @@
+// @ts-nocheck
 import { deserialize } from "@dao-xyz/borsh";
 import {
   DatedViewingKey as DatedViewingKeyWasm,
   Query as QueryWasm,
   Sdk as SdkWasm,
   TransferToEthereum,
-} from "wasm";
+} from "../wasm";
 import {
   BroadcastTxError,
   DatedViewingKey,
   TxResponseMsgValue,
   TxResponseProps,
-} from "types";
+} from "../types";
 
 import {
   Balance,

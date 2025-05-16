@@ -9,9 +9,9 @@ import {
   ExtendedViewingKey,
   gen_payment_address,
   public_key_to_bech32,
-} from "wasm";
-import { Bip44Path, Zip32Path } from "types";
-import { makeBip44PathArray, makeSaplingPathArray } from "utils";
+} from "../wasm";
+import { Bip44Path, NAMADA_COIN_TYPE as coinType, Zip32Path } from "../types";
+import { makeBip44PathArray, makeSaplingPathArray } from "../utils";
 import {
   Address,
   DEFAULT_BIP44_PATH,
@@ -21,7 +21,6 @@ import {
   ShieldedKeys,
   TransparentKeys,
 } from "./types";
-import { NAMADA_COIN_TYPE as coinType } from "types";
 
 /**
  * Namespace for key related functions

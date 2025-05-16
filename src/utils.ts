@@ -1,4 +1,4 @@
-import { Bip44Path, Zip32Path } from "types";
+import { Bip44Path, Zip32Path } from "./types";
 
 /**
  * Return a properly formatted BIP-044 path array

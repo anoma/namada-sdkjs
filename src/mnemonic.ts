@@ -3,7 +3,7 @@ import {
   StringPointer,
   readVecStringPointer,
   readVecU8Pointer,
-} from "wasm";
+} from "./wasm";
 
 export enum PhraseSize {
   N12 = 12,

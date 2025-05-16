@@ -1,5 +1,5 @@
 import Transport from "@ledgerhq/hw-transport";
-import { Query as QueryWasm, Sdk as SdkWasm } from "wasm";
+import { Query as QueryWasm, Sdk as SdkWasm } from "./wasm";
 import packageJson from "../package.json";
 import { Crypto } from "./crypto";
 import { Keys } from "./keys";
@@ -10,7 +10,7 @@ import { Rpc } from "./rpc";
 import { Signing } from "./signing";
 import { Tx } from "./tx";
 
-export { ProgressBarNames, SdkEvents } from "wasm";
+export { ProgressBarNames, SdkEvents } from "./wasm";
 
 /**
  * API for interacting with Namada SDK

@@ -1,4 +1,4 @@
-import { Sdk as SdkWasm } from "wasm";
+import { Sdk as SdkWasm } from "../wasm";
 
 /**
  * Class representing utilities related to MASP
