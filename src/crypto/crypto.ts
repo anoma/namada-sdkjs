@@ -7,7 +7,7 @@ import {
   Salt,
   VecU8Pointer,
   readVecU8Pointer,
-} from "wasm";
+} from "../wasm";
 import { Argon2Config, CryptoRecord, EncryptionParams, KdfType } from "./types";
 
 /**

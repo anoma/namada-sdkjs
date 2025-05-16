@@ -12,24 +12,26 @@ export const initializeWeb = async (
   const { rpcUrl, maspIndexerUrl, dbName, token } = sdkOpts;
   const sdkPath = `./${target}/sdk${multicore ? "-multicore" : ""}`;
   const wasmPath = `${sdkPath}/sdk_bg.wasm${inline ? "?url" : ""}`;
-  const wasm = await import(wasmPath);
+  return await fetch(wasmPath)
+    .then((res) => res.arrayBuffer())
+    .then(async (wasm) => {
+      const {
+        default: initWasm,
+        Sdk: SdkWasm,
+        Query: QueryWasm,
+        initThreadPool,
+      } = await import(/* webpackIgnore: true */ `${sdkPath}/sdk.js`);
 
-  const {
-    default: initWasm,
-    Sdk: SdkWasm,
-    Query: QueryWasm,
-    initThreadPool,
-  } = await import(sdkPath);
-
-  const { cryptoMemory } = initWasm(wasm);
-  if (multicore) {
-    await initThreadPool(navigator.hardwareConcurrency);
-  }
-  const sdk = new SdkWasm(rpcUrl, token, dbName);
-  const query = new QueryWasm(rpcUrl, maspIndexerUrl);
-  return {
-    cryptoMemory,
-    query,
-    sdk,
-  };
+      const { memory } = await initWasm(wasm);
+      if (multicore) {
+        await initThreadPool(navigator.hardwareConcurrency);
+      }
+      const sdk = new SdkWasm(rpcUrl, token, dbName);
+      const query = new QueryWasm(rpcUrl, maspIndexerUrl);
+      return {
+        memory,
+        query,
+        sdk,
+      };
+    });
 };

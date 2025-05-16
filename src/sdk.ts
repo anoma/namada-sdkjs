@@ -1,5 +1,5 @@
 import Transport from "@ledgerhq/hw-transport";
-import { Query as QueryWasm, Sdk as SdkWasm } from "wasm";
+import { Query as QueryWasm, Sdk as SdkWasm } from "./wasm";
 import packageJson from "../package.json";
 import { Crypto } from "./crypto";
 import { Keys } from "./keys";
@@ -10,7 +10,7 @@ import { Rpc } from "./rpc";
 import { Signing } from "./signing";
 import { Tx } from "./tx";
 
-export { ProgressBarNames, SdkEvents } from "wasm";
+export { ProgressBarNames, SdkEvents } from "./wasm";
 
 /**
  * API for interacting with Namada SDK
@@ -19,14 +19,14 @@ export class Sdk {
   /**
    * @param sdk - Instance of Sdk struct from wasm lib
    * @param query - Instance of Query struct from wasm lib
-   * @param cryptoMemory - Memory accessor for crypto lib
+   * @param memory - Memory accessor for wasm lib
    * @param url - RPC url
    * @param nativeToken - Address of chain's native token
    */
   constructor(
     protected sdk: SdkWasm,
     protected query: QueryWasm,
-    public readonly cryptoMemory: WebAssembly.Memory,
+    public readonly memory: WebAssembly.Memory,
     public readonly url: string,
     public readonly nativeToken: string,
   ) {}
@@ -69,7 +69,7 @@ export class Sdk {
    * @returns mnemonic-related functionality
    */
   getMnemonic(): Mnemonic {
-    return new Mnemonic(this.cryptoMemory);
+    return new Mnemonic(this.memory);
   }
 
   /**
@@ -77,7 +77,7 @@ export class Sdk {
    * @returns key-related functionality
    */
   getKeys(): Keys {
-    return new Keys(this.cryptoMemory);
+    return new Keys(this.memory);
   }
 
   /**
@@ -101,7 +101,7 @@ export class Sdk {
    * @returns Utilities for encrypting and decrypting data
    */
   getCrypto(): Crypto {
-    return new Crypto(this.cryptoMemory);
+    return new Crypto(this.memory);
   }
 
   /**

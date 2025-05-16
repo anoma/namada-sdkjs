@@ -1,5 +1,5 @@
-import { Sdk as SdkWasm } from "wasm";
-import { Message, TxMsgValue, TxProps } from "types";
+import { Sdk as SdkWasm } from "./wasm";
+import { Message, TxMsgValue, TxProps } from "./types";
 
 type Signature = [string, string];
 

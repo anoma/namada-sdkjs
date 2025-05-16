@@ -1,3 +1,5 @@
+// @ts-nocheck
+// TODO: How can we remove the above?
 import { Proposal, Proposals } from "./borsh-schemas";
 // TODO: How to handle these imports?
 import { Query as RustQuery } from "./target/web/sdk";
@@ -61,4 +63,4 @@ export class Query extends RustQuery {
 
 export * from "./types";
 export { Proposal, Proposals };
-export { initSdk } from "wasm/loader";
+export { initSdk } from "../wasm/loader";

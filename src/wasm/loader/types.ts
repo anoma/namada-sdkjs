@@ -1,7 +1,7 @@
 import type {
   Sdk as SdkWasmType,
   Query as QueryWasmType,
-} from "wasm/target/web/sdk";
+} from "../../wasm/target/web/sdk";
 
 export type WasmTarget = "web" | "nodejs";
 export type SdkBuildOptions = {
@@ -23,5 +23,5 @@ export type InitProps = SdkWasmOptions & {
 export type InitializedWasm = {
   sdk: SdkWasmType;
   query: QueryWasmType;
-  cryptoMemory: WebAssembly.Memory;
+  memory: WebAssembly.Memory;
 };

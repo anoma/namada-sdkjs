@@ -1,4 +1,4 @@
-import { Sdk } from "sdk";
+import { Sdk } from "../../sdk";
 import {
   InitializedWasm,
   InitProps,
@@ -32,7 +32,7 @@ export const initSdk = async (props: InitProps) => {
   const inline = options?.inline ?? false;
 
   // Import and initialize wasm
-  const { cryptoMemory, query, sdk } = await initializeSdk(
+  const { memory, query, sdk } = await initializeSdk(
     { target, multicore, inline },
     {
       rpcUrl,
@@ -42,5 +42,5 @@ export const initSdk = async (props: InitProps) => {
     },
   );
 
-  return new Sdk(sdk, query, cryptoMemory, rpcUrl, token);
+  return new Sdk(sdk, query, memory, rpcUrl, token);
 };

@@ -9,8 +9,8 @@ import {
 import { initSdk } from "./initSdk";
 
 describe("Keys", () => {
-  it("should derive transparent keys from mnemonic phrase", () => {
-    const { keys } = initSdk();
+  it("should derive transparent keys from mnemonic phrase", async () => {
+    const { keys } = await initSdk();
 
     const { address, publicKey, privateKey } =
       keys.deriveFromMnemonic(mnemonic1);
@@ -20,14 +20,14 @@ describe("Keys", () => {
     expect(privateKey).toBe(account1.privateKey);
   });
 
-  it("should derive shielded keys from seed", () => {
-    const { keys, mnemonic } = initSdk();
+  it("should derive shielded keys from seed", async () => {
+    const { keys, mnemonic } = await initSdk();
     const seed = mnemonic.toSeed(mnemonic1);
     const seed2 = mnemonic.toSeed(mnemonic2);
 
     const { address, viewingKey, spendingKey } = keys.deriveShieldedFromSeed(
       seed,
-      shieldedAccount1.path
+      shieldedAccount1.path,
     );
 
     expect(address).toBe(shieldedAccount1.paymentAddress);
@@ -45,8 +45,8 @@ describe("Keys", () => {
     expect(spendingKey2).toBe(shieldedAccount2.spendingKey);
   });
 
-  it("should derive keys from seed", () => {
-    const { keys, mnemonic } = initSdk();
+  it("should derive keys from seed", async () => {
+    const { keys, mnemonic } = await initSdk();
     // Generate a seed from a mnemonic phrase
     const seed = mnemonic.toSeed(mnemonic1);
     // Derive account from that seed
@@ -57,8 +57,8 @@ describe("Keys", () => {
     expect(privateKey).toBe(account1.privateKey);
   });
 
-  it("should generate valid sequential payment addresses", () => {
-    const { keys } = initSdk();
+  it("should generate valid sequential payment addresses", async () => {
+    const { keys } = await initSdk();
     const { viewingKey } = shieldedAccount1;
 
     // Test starting with undefined diversifierIndex, as this will be undefined
@@ -74,7 +74,7 @@ describe("Keys", () => {
     while (paymentAddresses.length < 100) {
       const { diversifierIndex, address } = keys.genPaymentAddress(
         viewingKey,
-        currentIndex + 1
+        currentIndex + 1,
       );
       paymentAddresses.push([diversifierIndex, address]);
       currentIndex = diversifierIndex;

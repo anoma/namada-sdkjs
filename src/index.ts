@@ -65,10 +65,10 @@ export type { Signing } from "./signing";
 export type { Tx } from "./tx";
 
 // Export SDK initializer and types
-export { initSdk } from "wasm";
+export { initSdk } from "./wasm";
 export type {
   WasmTarget,
   SdkBuildOptions,
   SdkWasmOptions,
   InitProps,
-} from "wasm";
+} from "./wasm";

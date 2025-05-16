@@ -6,11 +6,11 @@ import {
 import { initSdk } from "./initSdk";
 
 describe("Signing", () => {
-  it("should generate a signature", () => {
-    const { signing } = initSdk();
+  it("should generate a signature", async () => {
+    const { signing } = await initSdk();
     const result = signing.signArbitrary(
       account1.privateKey,
-      JSON.stringify({ test: "test" })
+      JSON.stringify({ test: "test" }),
     );
     const [hash, signature] = result;
 
@@ -18,26 +18,26 @@ describe("Signing", () => {
     expect(signature).toBe(validSignature.signature);
   });
 
-  it("should validate a signature", () => {
-    const { signing } = initSdk();
+  it("should validate a signature", async () => {
+    const { signing } = await initSdk();
 
     const result = signing.verifyArbitrary(
       account1.publicKey,
       validSignature.hash,
-      validSignature.signature
+      validSignature.signature,
     );
 
     expect(result).toBeUndefined();
   });
 
-  it("should throw error when validating an invalid signature", () => {
-    const { signing } = initSdk();
+  it("should throw error when validating an invalid signature", async () => {
+    const { signing } = await initSdk();
 
     const verify = (): void =>
       signing.verifyArbitrary(
         account1.publicKey,
         invalidSignature.hash,
-        invalidSignature.signature
+        invalidSignature.signature,
       );
 
     expect(verify).toThrow();

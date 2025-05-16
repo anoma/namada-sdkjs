@@ -1,4 +1,4 @@
-import { Argon2Params as Argon2ParamsWasm, VecU8Pointer } from "wasm";
+import { Argon2Params as Argon2ParamsWasm, VecU8Pointer } from "../wasm";
 
 export const Argon2Config = {
   // Number of memory blocks in kibibytes

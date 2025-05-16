@@ -2,8 +2,17 @@
   "name": "@namada/sdk",
   "version": "1.0.0",
   "description": "Namada SDK Package",
-  "main": "dist/index.js",
-  "types": "dist/index.d.ts",
+  "main": "lib/cjs/index.js",
+  "module": "lib/esm/index.js",
+  "types": "lib/esm/index.d.ts",
+  "exports": {
+    "import": "./lib/esm/index.js",
+    "require": "./lib/cjs/index.js"
+  },
+  "files": [
+    "lib",
+    "src"
+  ],
   "repository": "https://github.com/anoma/namada-sdkjs/",
   "author": "Heliax Dev <info@heliax.dev>",
   "license": "MIT",
@@ -16,8 +25,10 @@
     "prebuild": "rimraf ./dist",
     "wasm:cp": "node ./scripts/copy.js",
     "build:web": "yarn wasm:build && tspc -p tsconfig.web.json",
+    "build:ts": "yarn prebuild && node ./scripts/copy.js && tsc -p tsconfig.esm.json && tsc -p tsconfig.cjs.json",
     "build:node": "yarn wasm:build:node && tspc -p tsconfig.node.json",
     "build": "yarn prebuild && yarn build:web && yarn build:node && yarn wasm:cp",
+    "wasm:build:all": "yarn wasm:build && yarn wasm:build:multicore && yarn wasm:build:node && yarn wasm:build:node:multicore",
     "wasm:check": "cd ./lib && cargo check && cargo clippy",
     "wasm:ts:node": "tsc -p tsconfig.lib.node.json",
     "wasm:ts:web": "tsc -p tsconfig.lib.web.json",
@@ -69,9 +80,6 @@
     "typescript-transform-paths": "^3.4.7",
     "wasm-pack": "^0.13.0"
   },
-  "files": [
-    "dist/**/*.{js,ts,wasm}"
-  ],
   "publishConfig": {
     "registry": "https://registry.npmjs.org",
     "access": "public"

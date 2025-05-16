@@ -13,7 +13,7 @@ import {
 import semver from "semver";
 import { makeBip44Path, makeSaplingPath } from "./utils";
 
-import { NAMADA_COIN_TYPE as coinType } from "types";
+import { NAMADA_COIN_TYPE as coinType } from "./types";
 
 export type LedgerAddressAndPublicKey = { address: string; publicKey: string };
 export type LedgerViewingKey = {

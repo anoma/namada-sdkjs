@@ -4,7 +4,7 @@ import {
   TxType,
   deserialize_tx,
   get_inner_tx_hashes,
-} from "wasm";
+} from "../wasm";
 import {
   BondMsgValue,
   BondProps,
@@ -41,7 +41,7 @@ import {
   WithdrawProps,
   WrapperTxMsgValue,
   WrapperTxProps,
-} from "types";
+} from "../types";
 import { ResponseSign } from "@zondax/ledger-namada";
 import BigNumber from "bignumber.js";
 import { WasmHash } from "../rpc";
