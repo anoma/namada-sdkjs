@@ -1,0 +1,22 @@
+{
+  "extends": "./tsconfig.json",
+  "include": [
+    "src/**/*"
+  ],
+  "exclude": [
+    "node_modules"
+  ],
+  "compilerOptions": {
+    "declaration": true,
+    "outDir": "dist/inline",
+    "module": "esnext",
+    "moduleResolution": "bundler",
+    "plugins": [
+      // Transform paths in output .js files
+      { "transform": "typescript-transform-paths" },
+
+      // Transform paths in output .d.ts files (Include this line if you output declarations files)
+      { "transform": "typescript-transform-paths", "afterDeclarations": true }
+    ]
+  }
+}

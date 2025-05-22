@@ -1,9 +1,0 @@
-{
-    "extends": "./tsconfig.esm.json",
-    "compilerOptions": {
-        "target": "ES2020",
-        "module": "commonjs",
-        "outDir": "dist/lib/cjs",
-        "moduleResolution": "node"
-    }
-}
