@@ -1,0 +1,14 @@
+{
+  "name": "@namada/wasm",
+  "private": true,
+  "version": "1.0.0",
+  "description": "Namada SDK Wasm exports",
+  "main": "src/index.js",
+  "types": "src/index.d.ts",
+  "repository": "https://github.com/anoma/namada-sdkjs/",
+  "author": "Heliax Dev <info@heliax.dev>",
+  "license": "MIT",
+  "dependencies": {
+    "@dao-xyz/borsh": "^5.1.5"
+  }
+}

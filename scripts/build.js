@@ -1,6 +1,7 @@
-const { parseArgs } = require("node:util");
-const { spawnSync, execSync } = require("child_process");
+import { parseArgs } from "node:util";
+import { spawnSync, execSync } from "child_process";
 
+const __dirname = import.meta.dirname;
 const targets = ["web", "nodejs"];
 
 const argsOptions = {
@@ -29,10 +30,10 @@ const {
 const mode = release ? "release" : "development";
 const multicoreLabel = multicore ? "on" : "off";
 const target = targets.includes(maybeTarget) ? maybeTarget : "web";
-const sdkTarget = `sdk${multicore ? "-multicore" : ""}`;
+const sdkPath = "packages/wasm/src/sdk";
 
-execSync("rm -rf dist");
-execSync(`rm -rf src/wasm/${target}/${sdkTarget}`);
+// execSync("rm -rf dist");
+execSync(`rm -rf ${sdkPath}`);
 
 console.log(
   `Building \"sdk\" in ${mode} mode for ${target} target. Multicore is ${multicoreLabel}.`,
@@ -49,14 +50,14 @@ if (!release) {
   profile = "--dev";
 }
 
-const outDir = `${__dirname}/../src/wasm/${target}/${sdkTarget}`;
+const outDir = `${__dirname}/../${sdkPath}`;
 
 execSync(`rm -rf ${outDir}}`);
 const { status } = spawnSync(
   "wasm-pack",
   [
     "build",
-    `${__dirname}/../lib`,
+    `${__dirname}/../crate`,
     profile,
     `--target`,
     target,
@@ -89,11 +90,3 @@ const { status } = spawnSync(
 if (status !== 0) {
   process.exit(status);
 }
-
-execSync("rm -rf dist && mkdir dist && mkdir dist/sdk");
-
-// Remove the .gitignore so we can publish generated files
-execSync(`rm -rf ${outDir}.gitignore`);
-
-// Manually copy wasms to dist
-execSync(`cp -r ${outDir}/*.wasm ${__dirname}/../dist/sdk`);

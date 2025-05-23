@@ -1,0 +1,23 @@
+{
+  "compilerOptions": {
+    "paths": {
+      "@namada/lib": ["../../../packages/lib/src"],
+      "@namada/lib/*": ["../../../packages/lib/src/*"],
+
+      "@namada/sdk": ["../../../packages/sdk/src"],
+      "@namada/sdk/*": ["../../../packages/sdk/src/*"],
+
+      "@namada/sdk-multicore": ["../../../packages/sdk-multicore/src"],
+      "@namada/sdk-multicore/*": ["../../../packages/sdk-multicore/src/*"],
+
+      "@namada/sdk-node": ["../../../packages/sdk-node/src"],
+      "@namada/sdk-node/*": ["../../../packages/sdk-node/src/*"],
+
+      "@namada/sdk-node-multicore": ["../../../packages/sdk-node-multicore/src"],
+      "@namada/sdk-node-multicore/*": ["../../../packages/sdk-node-multicore/src/*"],
+
+      "@namada/wasm": ["../../../packages/wasm/src"],
+      "@namada/wasm/*": ["../../../packages/wasm/src/*"]
+    }
+  }
+}
