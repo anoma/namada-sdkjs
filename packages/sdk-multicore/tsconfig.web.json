@@ -1,16 +1,19 @@
 {
-  "extends": "../../tsconfig.base.json",
+  "extends": "./tsconfig.json",
   "include": [
-    "src/**/*"
+    "src/index.ts",
+    "src/init.ts"
   ],
   "exclude": [
-    "node_modules"
+    "**/*.test.ts",
+    "node_modules",
+    "scripts"
   ],
   "compilerOptions": {
     "declaration": true,
-    "outDir": "dist/node",
-    "module": "node16",
-    "moduleResolution": "node16",
+    "outDir": "../../dist",
+    "module": "esnext",
+    "moduleResolution": "bundler",
     "plugins": [
       // Transform paths in output .js files
       { "transform": "typescript-transform-paths" },

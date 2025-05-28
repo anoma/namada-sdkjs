@@ -1956,6 +1956,16 @@ __metadata:
 "@namada/sdk-multicore@workspace:packages/sdk-multicore":
   version: 0.0.0-use.local
   resolution: "@namada/sdk-multicore@workspace:packages/sdk-multicore"
+  dependencies:
+    "@cosmjs/encoding": "npm:^0.29.0"
+    "@dao-xyz/borsh": "npm:^5.1.5"
+    "@ledgerhq/hw-transport": "npm:^6.31.4"
+    "@ledgerhq/hw-transport-webusb": "npm:^6.29.4"
+    "@zondax/ledger-namada": "npm:^2.0.0"
+    bignumber.js: "npm:^9.1.1"
+    buffer: "npm:^6.0.3"
+    semver: "npm:^7.6.3"
+    slip44: "npm:^3.0.18"
   languageName: unknown
   linkType: soft
 
@@ -1974,6 +1984,16 @@ __metadata:
 "@namada/sdk@workspace:packages/sdk":
   version: 0.0.0-use.local
   resolution: "@namada/sdk@workspace:packages/sdk"
+  dependencies:
+    "@cosmjs/encoding": "npm:^0.29.0"
+    "@dao-xyz/borsh": "npm:^5.1.5"
+    "@ledgerhq/hw-transport": "npm:^6.31.4"
+    "@ledgerhq/hw-transport-webusb": "npm:^6.29.4"
+    "@zondax/ledger-namada": "npm:^2.0.0"
+    bignumber.js: "npm:^9.1.1"
+    buffer: "npm:^6.0.3"
+    semver: "npm:^7.6.3"
+    slip44: "npm:^3.0.18"
   languageName: unknown
   linkType: soft
 
@@ -7380,6 +7400,7 @@ __metadata:
     lint-staged: "npm:^15.2.0"
     prettier: "npm:^3.3.3"
     prettier-plugin-organize-imports: "npm:^3.2.4"
+    ts-patch: "npm:^3.1.2"
     typescript: "npm:5.5.4"
     wsrun: "npm:^5.2.4"
   languageName: unknown

@@ -13,9 +13,6 @@
       "@namada/sdk-node": ["../../../packages/sdk-node/src"],
       "@namada/sdk-node/*": ["../../../packages/sdk-node/src/*"],
 
-      "@namada/sdk-node-multicore": ["../../../packages/sdk-node-multicore/src"],
-      "@namada/sdk-node-multicore/*": ["../../../packages/sdk-node-multicore/src/*"],
-
       "@namada/wasm": ["../../../packages/wasm/src"],
       "@namada/wasm/*": ["../../../packages/wasm/src/*"]
     }

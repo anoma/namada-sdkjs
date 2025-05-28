@@ -6,7 +6,6 @@ import { Query as RustQuery } from "./sdk";
 export * from "./sdk";
 export * from "./types";
 export * from "./utils";
-export * from "./loader";
 
 type TimeoutOpts = {
   // Timeout in milliseconds
@@ -63,4 +62,3 @@ export class Query extends RustQuery {
 
 export * from "./types";
 export { Proposal, Proposals };
-export { initSdk } from "../wasm/loader";

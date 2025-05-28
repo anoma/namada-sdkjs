@@ -1,34 +1,42 @@
 // We have to use relative improts here othewise ts-patch is getting confused and produces wrong paths after compialtion
-import { init as initSdk } from "../../wasm/src/init";
+import { Query as QueryWasm, Sdk as SdkWasm } from "@namada/wasm";
+// We have to use relative imports here othewise ts-patch is getting confused and produces wrong paths after compialtion
+import { init } from "../../wasm/src/init";
 import { initThreadPool } from "../../wasm/src/init-thread-pool";
+import { Sdk, SdkWasmOptions } from "../../lib/src";
+
+/**
+ * Query native token from the node
+ * @async
+ * @param rpc - URL of the node
+ * @returns
+ */
+export async function getNativeToken(rpc: string): Promise<string> {
+  return await new QueryWasm(rpc).query_native_token();
+}
 
 /**
  * Initialize the SDK memory
  * @async
- * @returns - The SDK wasm memory pointer
+ * @param props - SdkWasmOptions object
+ * @returns - Sdk instance
  */
-export default async function init(): Promise<{
-  memory: WebAssembly.Memory;
-}> {
-  // Load and initialize shared wasm
-  const sharedWasm = await fetch("shared.namada.wasm").then((wasm) =>
+export async function initSdk(props: SdkWasmOptions): Promise<Sdk> {
+  const { rpcUrl, token, maspIndexerUrl, dbName = "" } = props;
+  // Load and initialize sdk wasm
+  const wasm = await fetch("sdk.namada.wasm").then((wasm) =>
     wasm.arrayBuffer(),
   );
-  const { memory } = await initSdk(sharedWasm);
-
-  return { memory };
-}
-
-/**
- * Initialize the SDK memory, with multicore support.
- * If you built wasm without multicore support, this will work as regular init.
- * @async
- * @returns - The SDK crypto memory
- */
-export async function initMulticore(): Promise<{
-  memory: WebAssembly.Memory;
-}> {
-  const res = await init();
+  const { memory } = await init(wasm);
   await initThreadPool(navigator.hardwareConcurrency);
-  return res;
+
+  // We change empty string to undefined so it "maps" to the Option<String> in Rust
+  const maspIndexerUrlOpt =
+    maspIndexerUrl?.length === 0 ? undefined : maspIndexerUrl;
+  // Instantiate QueryWasm
+  const query = new QueryWasm(rpcUrl, maspIndexerUrlOpt);
+
+  // Instantiate SdkWasm
+  const sdk = new SdkWasm(rpcUrl, token, dbName);
+  return new Sdk(sdk, query, memory, rpcUrl, token);
 }

@@ -7,8 +7,12 @@
   ],
   "scripts": {
     "prepare": "husky install",
-    "wasm:ts:node": "tsc -p tsconfig.lib.node.json",
-    "wasm:ts:web": "tsc -p tsconfig.lib.web.json",
+    "ts:web": "tspc -p packages/sdk/tsconfig.web.json",
+    "ts:web-multicore": "tspc -p packages/sdk-multicore/tsconfig.web.json",
+    "ts:node": "tspc -p packages/sdk-node/tsconfig.web.json",
+    "ts:node-multicore": "tspc -p packages/sdk-node-multicore/tsconfig.json",
+    "wasm:ts:node": "tspc -p tsconfig.lib.node.json",
+    "wasm:ts:web": "tspc -p tsconfig.lib.web.json",
     "wasm:build": "yarn wasm:ts:web && node ./scripts/build.js --release",
     "wasm:build:multicore": "yarn wasm:ts:web && node ./scripts/build.js --release --multicore",
     "wasm:build:dev": "yarn wasm:ts:web && node ./scripts/build.js",
@@ -27,6 +31,7 @@
     "lint-staged": "^15.2.0",
     "prettier": "^3.3.3",
     "prettier-plugin-organize-imports": "^3.2.4",
+    "ts-patch": "^3.1.2",
     "typescript": "5.5.4",
     "wsrun": "^5.2.4"
   },

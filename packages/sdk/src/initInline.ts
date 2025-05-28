@@ -1,33 +1,33 @@
+import { Query as QueryWasm, Sdk as SdkWasm } from "@namada/wasm";
 // We have to use relative imports here othewise ts-patch is getting confused and produces wrong paths after compilation
-import { init as initCrypto } from "../../wasm/src/init-inline";
-import { init as initShared } from "../../wasm/src/init-inline";
-import { initThreadPool } from "../../wasm/src/init-thread-pool";
+import { init } from "../../wasm/src/init-inline";
+import { Sdk, SdkWasmOptions } from "../../lib/src";
+
+/**
+ * Query native token from the node
+ * @async
+ * @param rpc - URL of the node
+ * @returns
+ */
+export async function getNativeToken(rpc: string): Promise<string> {
+  return await new QueryWasm(rpc).query_native_token();
+}
 
 /**
  * Initialize the SDK memory
  * @async
- * @returns - The SDK wasm memory pointer
+ * @param props - SdkWasmOptions object
+ * @returns - Sdk instance
  */
-export default async function init(): Promise<{
-  memory: WebAssembly.Memory;
-}> {
-  // Load and initialize shared wasm
-  await initShared();
-  // Load and initialize crypto wasm
-  const { memory } = await initCrypto();
-  return { memory };
-}
+export async function initSdk(props: SdkWasmOptions): Promise<Sdk> {
+  const { rpcUrl, token, maspIndexerUrl, dbName = "" } = props;
+  // Initialize sdk inline wasm
+  const { memory } = await init();
 
-/**
- * Initialize the SDK memory, with multicore support.
- * If you built wasm without multicore support, this will work as regular init.
- * @async
- * @returns - The SDK wasm memory pointer
- */
-export async function initMulticore(): Promise<{
-  memory: WebAssembly.Memory;
-}> {
-  const res = await init();
-  await initThreadPool(navigator.hardwareConcurrency);
-  return res;
+  // Instantiate QueryWasm
+  const query = new QueryWasm(rpcUrl, maspIndexerUrl);
+
+  // Instantiate SdkWasm
+  const sdk = new SdkWasm(rpcUrl, token, dbName);
+  return new Sdk(sdk, query, memory, rpcUrl, token);
 }

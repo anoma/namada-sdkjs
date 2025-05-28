@@ -1,22 +1,32 @@
 {
   "extends": "../../tsconfig.base.json",
-  "include": [
-    "src/**/*"
-  ],
-  "exclude": [
-    "node_modules"
-  ],
   "compilerOptions": {
-    "declaration": true,
+    "allowJs": true,
+    "allowSyntheticDefaultImports": true,
+    "baseUrl": "./src",
     "outDir": "../../dist",
+    "esModuleInterop": true,
+    "experimentalDecorators": true,
+    "forceConsistentCasingInFileNames": true,
+    "isolatedModules": true,
+    // "dom" is needed for  WebAssembly typings
+    "lib": ["esnext", "dom"],
     "module": "esnext",
     "moduleResolution": "bundler",
-    "plugins": [
-      // Transform paths in output .js files
-      { "transform": "typescript-transform-paths" },
-
-      // Transform paths in output .d.ts files (Include this line if you output declarations files)
-      { "transform": "typescript-transform-paths", "afterDeclarations": true }
-    ]
+    "noEmit": false,
+    "noFallthroughCasesInSwitch": true,
+    "resolveJsonModule": true,
+    "skipLibCheck": true,
+    "sourceMap": true,
+    "strict": true,
+    "target": "es2015"
+  },
+  "include": ["src/**/*.ts", "examples/**/*.ts"],
+  "exclude": ["node_modules"],
+  "typeRoots": ["./node_modules/@types"],
+  "ts-node": {
+    "compilerOptions": {
+      "module": "commonjs"
+    }
   }
 }
