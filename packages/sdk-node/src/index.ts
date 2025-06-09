@@ -1,40 +1,11 @@
-import { Query as QueryWasm, Sdk as SdkWasm } from "@namada/wasm";
 import { webcrypto } from "node:crypto";
-import { Sdk } from "@namada/lib";
-export * from "./index";
+import { Query as QueryWasm, Sdk as SdkWasm } from "@namada/wasm";
+// We have to use relative imports here othewise ts-patch is getting confused and produces wrong paths after compialtion
+import { init } from "../../wasm/src/init";
+import { Sdk, SdkWasmOptions } from "../../lib/src";
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 (globalThis as any).crypto = webcrypto;
-
-/**
- * Get the SDK instance
- * @async
- * @param cryptoMemory - WebAssembly.Memory of crypto package
- * @param url - URL of the node
- * @param maspIndexerUrl - optional URL of the MASP indexer
- * @param storagePath - Path to store wallet files
- * @param [token] - Native token of the chain
- * @throws {Error} - Unable to Query native token
- * @returns - Sdk instance
- */
-export function getSdk(
-  cryptoMemory: WebAssembly.Memory,
-  url: string,
-  maspIndexerUrl: string,
-  storagePath: string,
-  token: string,
-): Sdk {
-  // We change empty string to undefined so it "maps" to the Option<String> in Rust
-  const maspIndexerUrlOpt =
-    maspIndexerUrl.length === 0 ? undefined : maspIndexerUrl;
-
-  // Instantiate QueryWasm
-  const query = new QueryWasm(url, maspIndexerUrlOpt);
-
-  // Instantiate SdkWasm
-  const sdk = new SdkWasm(url, token, storagePath);
-  return new Sdk(sdk, query, cryptoMemory, url, token);
-}
 
 /**
  * Query native token from the node
@@ -44,4 +15,26 @@ export function getSdk(
  */
 export async function getNativeToken(rpc: string): Promise<string> {
   return await new QueryWasm(rpc).query_native_token();
+}
+
+/**
+ * Initialize the SDK memory
+ * @async
+ * @param props - SdkWasmOptions object
+ * @returns - Sdk instance
+ */
+export async function initSdk(props: SdkWasmOptions): Promise<Sdk> {
+  const { rpcUrl, token, maspIndexerUrl, dbName = "" } = props;
+  // Load and initialize sdk wasm
+  const wasm = await fetch("sdk.namada.wasm").then((wasm) =>
+    wasm.arrayBuffer(),
+  );
+  const { memory } = await init(wasm);
+
+  // Instantiate QueryWasm
+  const query = new QueryWasm(rpcUrl, maspIndexerUrl);
+
+  // Instantiate SdkWasm
+  const sdk = new SdkWasm(rpcUrl, token, dbName);
+  return new Sdk(sdk, query, memory, rpcUrl, token);
 }

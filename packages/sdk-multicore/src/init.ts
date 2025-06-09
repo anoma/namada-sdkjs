@@ -1,11 +1,10 @@
-// We have to use relative improts here othewise ts-patch is getting confused and produces wrong paths after compialtion
 import { Query as QueryWasm, Sdk as SdkWasm } from "@namada/wasm";
 // We have to use relative imports here othewise ts-patch is getting confused and produces wrong paths after compialtion
 import { init } from "../../wasm/src/init";
 import { initThreadPool } from "../../wasm/src/init-thread-pool";
 import { Sdk, SdkWasmOptions } from "../../lib/src";
 
-/**
+/*m
  * Query native token from the node
  * @async
  * @param rpc - URL of the node
@@ -30,11 +29,8 @@ export async function initSdk(props: SdkWasmOptions): Promise<Sdk> {
   const { memory } = await init(wasm);
   await initThreadPool(navigator.hardwareConcurrency);
 
-  // We change empty string to undefined so it "maps" to the Option<String> in Rust
-  const maspIndexerUrlOpt =
-    maspIndexerUrl?.length === 0 ? undefined : maspIndexerUrl;
   // Instantiate QueryWasm
-  const query = new QueryWasm(rpcUrl, maspIndexerUrlOpt);
+  const query = new QueryWasm(rpcUrl, maspIndexerUrl);
 
   // Instantiate SdkWasm
   const sdk = new SdkWasm(rpcUrl, token, dbName);

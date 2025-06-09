@@ -7,6 +7,20 @@
   "repository": "https://github.com/anoma/namada-sdkjs/",
   "author": "Heliax Dev <info@heliax.dev>",
   "license": "MIT",
+  "exports": {
+    ".": {
+      "import": "./sdk-multicore/src/index.js",
+      "types": "./sdk-multicore/src/index.d.ts"
+    },
+    "./init": {
+      "import": "./sdk-multicore/src/init.js",
+      "types": "./sdk-multicore/src/init.d.ts"
+    },
+    "./inline": {
+      "import": "./sdk-multicore/src/initInline.js",
+      "types": "./sdk-multicore/src/initInline.d.ts"
+    }
+  },
   "files": [
     "lib/**/*.{js,ts}",
     "sdk-multicore/**/*.{js,ts}",
