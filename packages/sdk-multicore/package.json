@@ -1,6 +1,6 @@
 {
   "name": "@namada/sdk-multicore",
-  "version": "1.0.0",
+  "version": "0.20.0",
   "description": "Namada Web Multicore SDK",
   "main": "sdk-multicore/src/index.js",
   "types": "sdk-multicore/src/index.d.ts",
@@ -24,9 +24,15 @@
   "files": [
     "lib/**/*.{js,ts}",
     "sdk-multicore/**/*.{js,ts}",
-    "wasm/**/*.{js,ts,wasm}"
+    "wasm/**/*.{js,ts,wasm}",
+    "sdk.namada.wasm"
   ],
+  "scripts": {
+    "build": "tspc -p ./tsconfig.json"
+  },
   "dependencies": {
+    "@namada/lib": "workspace:^",
+    "@namada/wasm": "workspace:^",
     "@cosmjs/encoding": "^0.29.0",
     "@dao-xyz/borsh": "^5.1.5",
     "@ledgerhq/hw-transport": "^6.31.4",
@@ -34,8 +40,11 @@
     "@zondax/ledger-namada": "^2.0.0",
     "bignumber.js": "^9.1.1",
     "buffer": "^6.0.3",
-    "semver": "^7.6.3",
+    "semver": "^7.7.2",
     "slip44": "^3.0.18"
+  },
+  "devDependencies": {
+    "ts-patch": "^3.1.2"
   },
   "publishConfig": {
     "registry": "https://registry.npmjs.org",

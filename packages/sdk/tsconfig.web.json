@@ -12,7 +12,7 @@
   ],
   "compilerOptions": {
     "declaration": true,
-    "outDir": "../../dist",
+    "outDir": "./dist",
     "module": "esnext",
     "moduleResolution": "bundler",
     "plugins": [

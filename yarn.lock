@@ -1904,7 +1904,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@namada/lib@workspace:packages/lib":
+"@namada/lib@workspace:^, @namada/lib@workspace:packages/lib":
   version: 0.0.0-use.local
   resolution: "@namada/lib@workspace:packages/lib"
   dependencies:
@@ -1961,17 +1961,13 @@ __metadata:
     "@dao-xyz/borsh": "npm:^5.1.5"
     "@ledgerhq/hw-transport": "npm:^6.31.4"
     "@ledgerhq/hw-transport-webusb": "npm:^6.29.4"
+    "@namada/lib": "workspace:^"
+    "@namada/wasm": "workspace:^"
     "@zondax/ledger-namada": "npm:^2.0.0"
     bignumber.js: "npm:^9.1.1"
     buffer: "npm:^6.0.3"
-    semver: "npm:^7.6.3"
+    semver: "npm:^7.7.2"
     slip44: "npm:^3.0.18"
-  languageName: unknown
-  linkType: soft
-
-"@namada/sdk-node-multicore@workspace:packages/sdk-node-multicore":
-  version: 0.0.0-use.local
-  resolution: "@namada/sdk-node-multicore@workspace:packages/sdk-node-multicore"
   languageName: unknown
   linkType: soft
 
@@ -1997,7 +1993,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@namada/wasm@workspace:packages/wasm":
+"@namada/wasm@workspace:^, @namada/wasm@workspace:packages/wasm":
   version: 0.0.0-use.local
   resolution: "@namada/wasm@workspace:packages/wasm"
   dependencies:
@@ -8444,7 +8440,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"semver@npm:^7.3.5, semver@npm:^7.5.3, semver@npm:^7.5.4, semver@npm:^7.6.0, semver@npm:^7.6.3, semver@npm:^7.7.1":
+"semver@npm:^7.3.5, semver@npm:^7.5.3, semver@npm:^7.5.4, semver@npm:^7.6.0, semver@npm:^7.6.3, semver@npm:^7.7.1, semver@npm:^7.7.2":
   version: 7.7.2
   resolution: "semver@npm:7.7.2"
   bin:

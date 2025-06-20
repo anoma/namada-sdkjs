@@ -1,6 +1,5 @@
 import Transport from "@ledgerhq/hw-transport";
 import { Query as QueryWasm, Sdk as SdkWasm } from "@namada/wasm";
-import packageJson from "../package.json";
 import { Crypto } from "./crypto";
 import { Keys } from "./keys";
 import { Ledger } from "./ledger";
@@ -9,6 +8,7 @@ import { Mnemonic } from "./mnemonic";
 import { Rpc } from "./rpc";
 import { Signing } from "./signing";
 import { Tx } from "./tx";
+import { NAMADA_LIB_VERSION as sdkVersion } from "version";
 
 export { ProgressBarNames, SdkEvents } from "@namada/wasm";
 
@@ -16,6 +16,8 @@ export { ProgressBarNames, SdkEvents } from "@namada/wasm";
  * API for interacting with Namada SDK
  */
 export class Sdk {
+  public readonly version = sdkVersion;
+
   /**
    * @param sdk - Instance of Sdk struct from wasm lib
    * @param query - Instance of Query struct from wasm lib
@@ -115,14 +117,6 @@ export class Sdk {
   }
 
   /**
-   * Return SDK Package version
-   * @returns SDK version
-   */
-  getVersion(): string {
-    return packageJson.version;
-  }
-
-  /**
    * Define rpc getter to use with destructuring assignment
    * @returns rpc client
    */
@@ -176,13 +170,5 @@ export class Sdk {
    */
   get crypto(): Crypto {
     return this.getCrypto();
-  }
-
-  /**
-   * Define version getter for use with destructuring assignment
-   * @returns Version from package.json
-   */
-  get version(): string {
-    return this.getVersion();
   }
 }

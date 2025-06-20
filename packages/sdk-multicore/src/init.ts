@@ -4,7 +4,7 @@ import { init } from "../../wasm/src/init";
 import { initThreadPool } from "../../wasm/src/init-thread-pool";
 import { Sdk, SdkWasmOptions } from "../../lib/src";
 
-/*m
+/**
  * Query native token from the node
  * @async
  * @param rpc - URL of the node

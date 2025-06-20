@@ -1,16 +1,16 @@
 {
   "name": "namada",
-  "version": "1.0.0",
+  "version": "0.20.0",
   "private": true,
   "workspaces": [
     "packages/*"
   ],
   "scripts": {
+    "prebuild": "node -p \"'export const NAMADA_LIB_VERSION = ' + JSON.stringify(require('./package.json').version) + ';'\" > packages/lib/src/version.ts",
     "prepare": "husky install",
     "ts:web": "tspc -p packages/sdk/tsconfig.web.json",
-    "ts:web-multicore": "tspc -p packages/sdk-multicore/tsconfig.web.json",
-    "ts:node": "tspc -p packages/sdk-node/tsconfig.web.json",
-    "ts:node-multicore": "tspc -p packages/sdk-node-multicore/tsconfig.json",
+    "ts:web-multicore": "cd packages/sdk-multicore && tspc -p tsconfig.web.json",
+    "ts:node": "tspc -p packages/sdk-node/tsconfig.json",
     "wasm:check": "cd ./crate && cargo check && cargo clippy",
     "wasm:ts:node": "tspc -p tsconfig.lib.node.json",
     "wasm:ts:web": "tspc -p tsconfig.lib.web.json",

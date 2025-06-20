@@ -1,6 +1,6 @@
 {
   "name": "@namada/sdk",
-  "version": "1.0.0",
+  "version": "0.20.0",
   "description": "Namada Web SDK",
   "main": "sdk/src/index.js",
   "types": "sdk/src/index.d.ts",
@@ -24,7 +24,8 @@
   "files": [
     "lib/**/*.{js,ts}",
     "sdk/**/*.{js,ts}",
-    "wasm/**/*.{js,ts,wasm}"
+    "wasm/**/*.{js,ts,wasm}",
+    "sdk.namada.wasm"
   ],
   "dependencies": {
     "@cosmjs/encoding": "^0.29.0",
